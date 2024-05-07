@@ -9,7 +9,6 @@ export default function ItemAddForm() {
 
 
 const [item, setItem] = useState({
-    itemid: "",
     itemname: "",
     description: "",
     startingPrice: "",
@@ -30,7 +29,7 @@ const [item, setItem] = useState({
 //   };
   
 
-const {itemid,itemname,description,startingPrice,currentBid,bidEndTime,imageData} =item;
+const {itemname,description,startingPrice,currentBid,bidEndTime,imageData} =item;
 
  // Function to handle input changes
  const onInputChange = (e) => {
@@ -40,12 +39,12 @@ const {itemid,itemname,description,startingPrice,currentBid,bidEndTime,imageData
   const onSubmit = async (e) => {
     e.preventDefault();
     //item form validation- all fields should filled
-    if (!itemid || !itemname || !description || !startingPrice || !currentBid || !bidEndTime||!imageData) {
+    if (!itemname || !description || !startingPrice || !currentBid || !bidEndTime||!imageData) {
       alert("Please fill in all fields.");
       return;
     }
     
-    await axios.post("http://localhost:8080/additem", item);
+    await axios.post("http://localhost:8080/additem",item);
     navigate("/Auctions");
   };
 
@@ -96,7 +95,7 @@ const {itemid,itemname,description,startingPrice,currentBid,bidEndTime,imageData
                 </div>
                 <div className='col'>
                 <label htmlFor="bidEndTime" className="form-label">BidEnd Time</label>
-                <input type="time" className='form-control'
+                <input type="datetime-local" className='form-control'
                         placeholder='Enter bidEndTime'
                         name="bidEndTime"
                         value={bidEndTime}
@@ -105,8 +104,8 @@ const {itemid,itemname,description,startingPrice,currentBid,bidEndTime,imageData
                 </div>
                 <div className='col'>
                 <label htmlFor="imageData" className="form-label">Image Data</label>
-                <input type="file" className='form-control-file'
-                        placeholder='Enter bidEndTime'
+                <input type="file" className='form-control'
+                        placeholder='imageData'
                         name="imageData"
                         value={imageData}
                         onChange={(e) => onInputChange(e)}
