@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import Auction  from './Auctions/Auction';
 import Signup from './SignUp/Signup';
 import Login from "./Login/Login";
+import ItemAddForm from './Auctions/ItemAdd/ItemAddForm';
 function App() {
   return (
   
@@ -12,7 +13,8 @@ function App() {
         <Route path="/Auctions" element={<Auction/>} />
         <Route path="/Signup" element={<Signup/>} />
         <Route path="/Login" element={<Login/>} />
-      
+        <Route path="/ItemAdd" element={<ItemAddForm/>} />
+
       </Routes>
    
   );

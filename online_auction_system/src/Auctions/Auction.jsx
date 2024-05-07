@@ -9,8 +9,6 @@ const Auction = () => {
   const [searchTerm, setSearchTerm] = useState('');
  
     
-  
-  
   useEffect(() => {
         <div>ffhjfhsj</div>
         // Fetch items from backend API
