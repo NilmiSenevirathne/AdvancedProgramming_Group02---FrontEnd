@@ -106,7 +106,9 @@ const {itemid,itemname,description,startingPrice,currentBid,bidEndTime,imageData
                 <div className='col'>
                 <label htmlFor="imageData" className="form-label">Image Data</label>
                 <input type="file" className='form-control-file'
+                        placeholder='Enter bidEndTime'
                         name="imageData"
+                        value={imageData}
                         onChange={(e) => onInputChange(e)}
                 />
                 </div>
