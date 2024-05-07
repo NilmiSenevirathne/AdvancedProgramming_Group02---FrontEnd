@@ -24,7 +24,7 @@ const Home = () => {
     return (
         <div className="home-container">
             <header>
-                <Navbar />
+                <Navbar/>
                 <h1 className="bidzone">BidZone</h1>
                 
                 <div className="search-bar">
