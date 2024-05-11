@@ -41,6 +41,14 @@ const Products = ({ username }) => {
         }
     };
 
+    const handleSearch = () => {
+        // Filter items based on search term
+        const filteredItems = items.filter(item =>
+            item.itemname.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setItems(filteredItems);
+    };
+
     return (
         <div className="auction-container">
             <CustomerDashboard />

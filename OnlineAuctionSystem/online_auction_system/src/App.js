@@ -11,6 +11,7 @@ import Bidding from './Auctions/Bidding';
 import ItemDetails from './Auctions/ItemDetails';
 import BidForm from './Auctions/BidForm';
 import AdminDashboard from './NavBar/AdminDashboard';
+import Updateitem from './Auctions/Updateitem';
 const App= ({ userId }) => {
 
   const [user, setUser] = useState(null);
@@ -38,6 +39,8 @@ const App= ({ userId }) => {
         <Route path="/:itemId" element={<ItemDetails userId={user ? user.userid : null} />} />
         {user && <Route path="/AdminDashboard" element={<AdminDashboard userId={user.userid} userName={user.username} />} />}
         {user && <Route path="/CustomerDashboard" element={<CustomerDashboard userId={user.userid} userName={user.username} />} />}
+        <Route path="/itemUpdateform/:itemId" element={<Updateitem/>} />
+
       </Routes>
    
   );
