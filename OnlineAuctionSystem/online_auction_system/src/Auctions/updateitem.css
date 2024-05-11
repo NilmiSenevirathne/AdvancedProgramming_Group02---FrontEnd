@@ -1,60 +1,71 @@
-.updateform {
-    max-width: 600px;
-    margin: 0 auto;
+/* updateitem.css */
+
+.updateform{
+    margin-top: 50px;
+}
+/* Form container */
+.form-container {
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
     padding: 20px;
+    max-width: 500px; /* Optional: Limit the width of the form */
+    margin: 0 auto; /* Optional: Center the form horizontally */
   }
   
+  /* Form name */
   .formname {
     text-align: center;
     margin-bottom: 20px;
   }
-  
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .thumbnail{
+    margin-left: 40%;
   }
   
-  .image-container {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* Form labels */
+  .form-label {
+    font-weight: bold;
+    width: 30px;
+    margin-left: 30px;
   }
   
-  .image-container img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  
+  /* Form inputs */
   .form-control {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
+    margin-left: 30px;
   }
   
-  .update-btn,
-  .cancel-btn {
-    padding: 10px 20px;
-    margin-top: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  /* Submit button */
   .update-btn {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 70px;
   }
   
+  .update-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Cancel button */
   .cancel-btn {
     background-color: #f44336;
     color: white;
+    padding: 15px 50px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 70px;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #da190b;
   }
   

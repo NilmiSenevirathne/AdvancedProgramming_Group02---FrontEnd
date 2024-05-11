@@ -39,7 +39,7 @@ const AdminDashboard = () => {
         <table>
           <thead>
             <tr>
-              <th>Item Id</th>
+
               <th>Item Name</th>
               <th>Item Image</th>
               <th>Description</th>
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
           <tbody>
             {itemdetails.map(item => (
               <tr key={item.itemid}>
-                <td>{item.itemid}</td>
+                
                 <td>{item.itemname}</td>
                 <td><img src={`data:image/jpeg;base64,${item.imageData}`} alt={item.itemname} className="thumbnail" /></td>
                 <td>{item.description}</td>
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
                 <td>{item.bidEndTime}</td>
                 <td>
                   {/* handleUpdate and handleDelete functions */}
-                  <Link to={`/itemUpdateform/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
+                  <Link to={`/updateitem/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
                   {/* <button onClick={() => handleDelete(item.itemid)} className='btndelete'>Delete</button> */}
                 </td>
               </tr>

@@ -1,36 +1,43 @@
-/* Style for update button */
-.btnupdate {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  
-  .btnupdate:hover {
-    background-color: #45a049; /* Darker Green */
-  }
-  
-  /* Style for delete button */
-  .btndelete {
-    background-color: #f44336; /* Red */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  
-  .btndelete:hover {
-    background-color: #d32f2f; /* Darker Red */
-  }
-  
+.itemdetails {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center; /* Aligning table data to the center */
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.thumbnail {
+  width: 50px;
+  height: 50px;
+}
+
+.btnupdate, .btndelete {
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btnupdate:hover, .btndelete:hover {
+  background-color: #0056b3;
+}
