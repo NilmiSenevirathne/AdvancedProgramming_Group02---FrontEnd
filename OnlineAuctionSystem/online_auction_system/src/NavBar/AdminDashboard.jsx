@@ -2,34 +2,33 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminNavbar from '../NavBar/AdminNavbar.jsx';
 import { Link } from 'react-router-dom';
-import './admindash.css'
+import './admindash.css';
 
 const AdminDashboard = () => {
   const [itemdetails, setItemDetails] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/getitems')
+    axios.get('http://localhost:8080/items')
       .then(response => {
         console.log(response.data);
         setItemDetails(response.data);
       })
       .catch(error => {
-        console.error("error fetching item details:", error);
+        console.error("Error fetching item details:", error);
       });
   }, []);
 
-  // // Function to handle delete button click
-  // const handleDelete = (itemId) => {
-  //   axios.delete(`http://localhost:8080/deleteitem/${itemId}`)
-  //     .then(response => {
-  //       console.log(response.data);
-  //       // Remove the deleted item from the state
-  //       setItemDetails(itemdetails.filter(item => item.itemid !== itemId));
-  //     })
-  //     .catch(error => {
-  //       console.error("error deleting item:", error);
-  //     });
-  // };
+  const handleDelete = (itemId) => {
+    axios.delete(`http://localhost:8080/items/${itemId}`)
+      .then(response => {
+        console.log(response.data);
+        setItemDetails(itemdetails.filter(item => item.id !== itemId));
+      })
+      .catch(error => {
+        console.error("Error deleting item:", error);
+        alert("An error occurred while deleting the item. Please try again later.");
+      });
+  };
 
   return (
     <div>
@@ -39,7 +38,6 @@ const AdminDashboard = () => {
         <table>
           <thead>
             <tr>
-
               <th>Item Name</th>
               <th>Item Image</th>
               <th>Description</th>
@@ -50,17 +48,15 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {itemdetails.map(item => (
-              <tr key={item.itemid}>
-                
+              <tr key={item.id}>
                 <td>{item.itemname}</td>
                 <td><img src={`data:image/jpeg;base64,${item.imageData}`} alt={item.itemname} className="thumbnail" /></td>
                 <td>{item.description}</td>
                 <td>{item.startingPrice}</td>
                 <td>{item.bidEndTime}</td>
                 <td>
-                  {/* handleUpdate and handleDelete functions */}
-                  <Link to={`/updateitem/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
-                  {/* <button onClick={() => handleDelete(item.itemid)} className='btndelete'>Delete</button> */}
+                  <Link to={`/updateitem/${item.id}`}><button className='btnupdate'>Update</button></Link>
+                  <button onClick={() => handleDelete(item.id)} className='btndelete'>Delete</button>
                 </td>
               </tr>
             ))}
@@ -69,6 +65,6 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminDashboard;
