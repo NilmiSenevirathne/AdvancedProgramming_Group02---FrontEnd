@@ -1,0 +1,54 @@
+.bid-form-container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.bid-form-container h3 {
+    margin-top: 0;
+}
+
+.bid-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.bid-form-container label {
+    margin-bottom: 5px;
+}
+
+.bid-form-container input[type="number"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.bid-form-container button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.bid-form-container button[type="submit"] {
+    background-color: #28a745;
+}
+
+.bid-form-container button[type="submit"]:hover,
+.bid-form-container button[type="button"]:hover {
+    background-color: #218838;
+}
+
+.bid-form-container p {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+}

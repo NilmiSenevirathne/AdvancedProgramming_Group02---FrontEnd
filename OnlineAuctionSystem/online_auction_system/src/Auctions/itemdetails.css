@@ -1,0 +1,77 @@
+
+.item-details-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .item-img img {
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .item-description {
+    margin-bottom: 20px;
+  }
+  
+  .price-info {
+    margin-bottom: 20px;
+  }
+  
+  .bid-end-time {
+    margin-bottom: 20px;
+  }
+  
+  /* bidform.css */
+  
+  .bid-form-container {
+    margin-top: 20px;
+  }
+  
+  .bid-form-container h3 {
+    margin-bottom: 10px;
+  }
+  
+  .bid-form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bid-form-container label {
+    margin-bottom: 5px;
+  }
+  
+  .bid-form-container input {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  .bid-form-container button {
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .success-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .success-dialog p {
+    margin-bottom: 10px;
+  }
+  
+  .success-dialog button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
