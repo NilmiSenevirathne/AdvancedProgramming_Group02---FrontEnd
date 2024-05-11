@@ -13,6 +13,7 @@ const Navbar = ({ isLoggedIn }) => {
 
           <li><Link to="/">User</Link></li> 
           <li><Link to="/">Item</Link></li>
+          <li><Link to="/viewBids">Bids</Link></li>
           <li><Link to="/">Logout</Link></li>
 
         </ul>
