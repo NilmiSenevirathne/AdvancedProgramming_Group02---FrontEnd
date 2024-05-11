@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const [itemdetails, setItemDetails] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/items')
+    axios.get('http://localhost:8080/getitems')
       .then(response => {
         console.log(response.data);
         setItemDetails(response.data);
@@ -19,10 +19,10 @@ const AdminDashboard = () => {
   }, []);
 
   const handleDelete = (itemId) => {
-    axios.delete(`http://localhost:8080/items/${itemId}`)
+    axios.delete(`http://localhost:8080/deleteitem/${itemId}`)
       .then(response => {
         console.log(response.data);
-        setItemDetails(itemdetails.filter(item => item.id !== itemId));
+        setItemDetails(itemdetails.filter(item => item.itemid !== itemId));
       })
       .catch(error => {
         console.error("Error deleting item:", error);
@@ -48,15 +48,15 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {itemdetails.map(item => (
-              <tr key={item.id}>
+              <tr key={item.itemid}>
                 <td>{item.itemname}</td>
                 <td><img src={`data:image/jpeg;base64,${item.imageData}`} alt={item.itemname} className="thumbnail" /></td>
                 <td>{item.description}</td>
                 <td>{item.startingPrice}</td>
                 <td>{item.bidEndTime}</td>
                 <td>
-                  <Link to={`/updateitem/${item.id}`}><button className='btnupdate'>Update</button></Link>
-                  <button onClick={() => handleDelete(item.id)} className='btndelete'>Delete</button>
+                  <Link to={`/updateitem/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
+                  <button onClick={() => handleDelete(item.itemid)} className='btndelete'>Delete</button>
                 </td>
               </tr>
             ))}
