@@ -18,7 +18,18 @@ const AdminDashboard = () => {
       });
   }, []);
 
-  
+  // // Function to handle delete button click
+  // const handleDelete = (itemId) => {
+  //   axios.delete(`http://localhost:8080/deleteitem/${itemId}`)
+  //     .then(response => {
+  //       console.log(response.data);
+  //       // Remove the deleted item from the state
+  //       setItemDetails(itemdetails.filter(item => item.itemid !== itemId));
+  //     })
+  //     .catch(error => {
+  //       console.error("error deleting item:", error);
+  //     });
+  // };
 
   return (
     <div>
@@ -28,6 +39,7 @@ const AdminDashboard = () => {
         <table>
           <thead>
             <tr>
+              <th>Item Id</th>
               <th>Item Name</th>
               <th>Item Image</th>
               <th>Description</th>
@@ -38,7 +50,8 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {itemdetails.map(item => (
-              <tr key={item.itemId}>
+              <tr key={item.itemid}>
+                <td>{item.itemid}</td>
                 <td>{item.itemname}</td>
                 <td><img src={`data:image/jpeg;base64,${item.imageData}`} alt={item.itemname} className="thumbnail" /></td>
                 <td>{item.description}</td>
@@ -47,7 +60,7 @@ const AdminDashboard = () => {
                 <td>
                   {/* handleUpdate and handleDelete functions */}
                   <Link to={`/itemUpdateform/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
-                  <button onClick={() => handleDelete(item.itemId)} className='btndelete'>Delete</button>
+                  {/* <button onClick={() => handleDelete(item.itemid)} className='btndelete'>Delete</button> */}
                 </td>
               </tr>
             ))}
