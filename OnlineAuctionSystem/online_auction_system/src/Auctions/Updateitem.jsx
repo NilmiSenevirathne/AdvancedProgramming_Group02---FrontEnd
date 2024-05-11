@@ -1,13 +1,16 @@
+// Updateitem.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import AdminNavbar from '../NavBar/AdminNavbar.jsx';
 import './updateitem.css';
 
 const Updateitem = () => {
   const { itemid } = useParams();
+  const navigate = useNavigate();
 
   const [values, setValues] = useState({
+    itemid: itemid,
     itemname: '',
     description: '',
     startingPrice: '',
@@ -15,43 +18,83 @@ const Updateitem = () => {
     imageData: '',
   });
 
-  useEffect(() => {
-    // Ensure itemid is defined before making the request
-    if (itemid) {
-      axios.get(`http://localhost:8080/viewitems/${itemid}`)
-        .then(response => {
-          const { itemname, description, startingPrice, bidEndTime } = response.data;
-          setValues({
-            ...values,
-            itemname: itemname,
-            description: description,
-            startingPrice: startingPrice,
-            bidEndTime: new Date(bidEndTime).toISOString().slice(0, -1)
-          });
-        })
-        .catch(error => {
-          console.error("Error fetching item details:", error);
-        });
+  const getItemDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/items/${itemid}`);
+      const itemDetails = response.data;
+      console.log('item id :', itemid);
+      setValues({
+        ...values,
+        itemname: itemDetails.itemname || '',
+        description: itemDetails.description || '',
+        startingPrice: itemDetails.startingPrice || '',
+        bidEndTime: itemDetails.bidEndTime || '',
+        imageData: itemDetails.imageData || '',
+      });
+    } catch (error) {
+      console.error('Error fetching item details:', error);
     }
+  };
+
+  useEffect(() => {
+    getItemDetails();
   }, [itemid]);
 
   const onInputChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
-  const onSubmit = (e) => {
+  //update items function
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // Implement your form submission logic here
-    console.log('Form submitted:', values);
+    try {
+        const response = await axios.put(`http://localhost:8080/updateitems/${itemid}`, values);
+        alert('Item details updated successfully:', response.data);
+        navigate('/AdminDashboard');
+    } catch (error) {
+      console.error('Error updating item details:', error);
+    }
   };
+
+   // Function to handle cancel button click
+   const onCancel = () => {
+    navigate('/AdminDashboard');
+  }; 
+
 
   return (
     <div>
       <AdminNavbar />
       <div className="updateform">
-        <h2 className="formname">Update Item Details Form </h2>
         <div className="form-container">
           <form onSubmit={onSubmit} className="bid-form">
+            <h2 className="formname">Update Item Details Form</h2>
+
+            {/* Display image */}
+            {values.imageData && (
+              <div className="mb-3">
+                <img src={`data:image/jpeg;base64,${values.imageData}`} alt={values.itemname} className="thumbnail" />
+              </div>
+            )}
+            
+
+            <div className="mb-3">
+              <label htmlFor="itemid" className="form-label">
+                ItemId
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                name="itemid"
+                value={values.itemid}
+                onChange={onInputChange}
+                readOnly
+              />
+            </div>
             <div className="mb-3">
               <label htmlFor="itemname" className="form-label">
                 ItemName
@@ -104,15 +147,16 @@ const Updateitem = () => {
               <button type="submit" className="update-btn">
                 Update
               </button>
-              <button type="reset" className="cancel-btn">
+              <button type="button" onClick={onCancel} className="cancel-btn">
                 Cancel
               </button>
+                
             </div>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Updateitem;

@@ -39,7 +39,8 @@ const App= ({ userId }) => {
         <Route path="/:itemId" element={<ItemDetails userId={user ? user.userid : null} />} />
         {user && <Route path="/AdminDashboard" element={<AdminDashboard userId={user.userid} userName={user.username} />} />}
         {user && <Route path="/CustomerDashboard" element={<CustomerDashboard userId={user.userid} userName={user.username} />} />}
-        <Route path="/itemUpdateform/:itemId" element={<Updateitem/>} />
+        <Route path="/updateitem/:itemid" element={<Updateitem/>}/>
+
 
       </Routes>
    
