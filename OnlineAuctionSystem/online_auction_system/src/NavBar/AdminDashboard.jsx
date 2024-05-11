@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminNavbar from '../NavBar/AdminNavbar.jsx';
 import { Link } from 'react-router-dom';
-import './admindash.css'
+import './admindash.css';
 
 const AdminDashboard = () => {
   const [itemdetails, setItemDetails] = useState([]);
@@ -14,11 +14,21 @@ const AdminDashboard = () => {
         setItemDetails(response.data);
       })
       .catch(error => {
-        console.error("error fetching item details:", error);
+        console.error("Error fetching item details:", error);
       });
   }, []);
 
-  
+  const handleDelete = (itemId) => {
+    axios.delete(`http://localhost:8080/deleteitem/${itemId}`)
+      .then(response => {
+        console.log(response.data);
+        setItemDetails(itemdetails.filter(item => item.itemid !== itemId));
+      })
+      .catch(error => {
+        console.error("Error deleting item:", error);
+        alert("An error occurred while deleting the item. Please try again later.");
+      });
+  };
 
   return (
     <div>
@@ -38,16 +48,15 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {itemdetails.map(item => (
-              <tr key={item.itemId}>
+              <tr key={item.itemid}>
                 <td>{item.itemname}</td>
                 <td><img src={`data:image/jpeg;base64,${item.imageData}`} alt={item.itemname} className="thumbnail" /></td>
                 <td>{item.description}</td>
                 <td>{item.startingPrice}</td>
                 <td>{item.bidEndTime}</td>
                 <td>
-                  {/* handleUpdate and handleDelete functions */}
-                  <Link to={`/itemUpdateform/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
-                  <button onClick={() => handleDelete(item.itemId)} className='btndelete'>Delete</button>
+                  <Link to={`/updateitem/${item.itemid}`}><button className='btnupdate'>Update</button></Link>
+                  <button onClick={() => handleDelete(item.itemid)} className='btndelete'>Delete</button>
                 </td>
               </tr>
             ))}
@@ -56,6 +65,6 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminDashboard;

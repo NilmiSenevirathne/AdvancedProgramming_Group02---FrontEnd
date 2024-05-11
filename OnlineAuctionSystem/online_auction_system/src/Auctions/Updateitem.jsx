@@ -1,50 +1,87 @@
-import React, { useState } from 'react';
+// Updateitem.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 import AdminNavbar from '../NavBar/AdminNavbar.jsx';
 import './updateitem.css';
 
 const Updateitem = () => {
-  // Define state variables for form input values
+  const { itemid } = useParams();
+  const navigate = useNavigate();
+
   const [values, setValues] = useState({
-    itemid: '',
+    itemid: itemid,
     itemname: '',
     description: '',
     startingPrice: '',
     bidEndTime: '',
+    imageData: '',
   });
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/items/${id}')
-      .then(response => {
-        console.log(response.data);
-        setItemDetails(response.data);
-      })
-      .catch(error => {
-        console.error("error fetching item details:", error);
+  const getItemDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/items/${itemid}`);
+      const itemDetails = response.data;
+      console.log('item id :', itemid);
+      setValues({
+        ...values,
+        itemname: itemDetails.itemname || '',
+        description: itemDetails.description || '',
+        startingPrice: itemDetails.startingPrice || '',
+        bidEndTime: itemDetails.bidEndTime || '',
+        imageData: itemDetails.imageData || '',
       });
-  }, []);
+    } catch (error) {
+      console.error('Error fetching item details:', error);
+    }
+  };
 
-  // Function to handle form input changes
+  useEffect(() => {
+    getItemDetails();
+  }, [itemid]);
+
   const onInputChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
-  // Function to handle form submission
-  const onSubmit = (e) => {
+  //update items function
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // Implement your form submission logic here
-    console.log('Form submitted:', values);
+    try {
+        const response = await axios.put(`http://localhost:8080/updateitems/${itemid}`, values);
+        alert('Item details updated successfully:', response.data);
+        navigate('/AdminDashboard');
+    } catch (error) {
+      console.error('Error updating item details:', error);
+    }
   };
+
+   // Function to handle cancel button click
+   const onCancel = () => {
+    navigate('/AdminDashboard');
+  }; 
+
 
   return (
     <div>
       <AdminNavbar />
       <div className="updateform">
-        <h2 className="formname">Update Item Details Form </h2>
         <div className="form-container">
-          <div className="image-container">
-            
-          </div>
           <form onSubmit={onSubmit} className="bid-form">
+            <h2 className="formname">Update Item Details Form</h2>
+
+            {/* Display image */}
+            {values.imageData && (
+              <div className="mb-3">
+                <img src={`data:image/jpeg;base64,${values.imageData}`} alt={values.itemname} className="thumbnail" />
+              </div>
+            )}
+            
+
             <div className="mb-3">
               <label htmlFor="itemid" className="form-label">
                 ItemId
@@ -54,6 +91,7 @@ const Updateitem = () => {
                 className="form-control"
                 name="itemid"
                 value={values.itemid}
+                onChange={onInputChange}
                 readOnly
               />
             </div>
@@ -67,7 +105,6 @@ const Updateitem = () => {
                 name="itemname"
                 value={values.itemname}
                 onChange={onInputChange}
-                
               />
             </div>
             <div className="mb-3">
@@ -80,7 +117,6 @@ const Updateitem = () => {
                 name="description"
                 value={values.description}
                 onChange={onInputChange}
-                
               />
             </div>
             <div className="mb-3">
@@ -92,19 +128,6 @@ const Updateitem = () => {
                 className="form-control"
                 name="startingPrice"
                 value={values.startingPrice}
-                onChange={onInputChange}
-                
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="currentBid" className="form-label">
-                CurrentBid
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                name="currentBid"
-                value={values.currentBid}
                 onChange={onInputChange}
               />
             </div>
@@ -118,22 +141,22 @@ const Updateitem = () => {
                 name="bidEndTime"
                 value={values.bidEndTime}
                 onChange={onInputChange}
-                readOnly
               />
             </div>
             <div>
               <button type="submit" className="update-btn">
                 Update
               </button>
-              <button type="submit" className="cancel-btn">
+              <button type="button" onClick={onCancel} className="cancel-btn">
                 Cancel
               </button>
+                
             </div>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Updateitem;
